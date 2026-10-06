@@ -1,0 +1,38 @@
+type LogoProps = {
+  label: string;
+};
+
+export default function Logo({ label }: LogoProps) {
+  return (
+    <a href="#top" aria-label={label} className="flex items-center gap-3">
+      <svg
+        viewBox="10 20 280 100"
+        aria-hidden="true"
+        className="block h-auto w-[54px]"
+      >
+        <path
+          d="M150,70 C110,20 30,20 30,70 C30,120 110,120 150,70"
+          stroke="#8FA0BC"
+          strokeWidth={30}
+          strokeLinecap="round"
+          fill="none"
+        />
+        <path
+          d="M150,70 C190,20 270,20 270,70 C270,120 190,120 150,70"
+          stroke="#F2A93D"
+          strokeWidth={30}
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
+      <span className="flex flex-col leading-none">
+        <span className="font-head text-[1.3rem] font-semibold tracking-[.16em]">
+          SOLVANTA
+        </span>
+        <span className="mt-[5px] pl-[2px] text-[.56rem] tracking-[.42em] text-silver">
+          ENERGY SYSTEMS
+        </span>
+      </span>
+    </a>
+  );
+}
