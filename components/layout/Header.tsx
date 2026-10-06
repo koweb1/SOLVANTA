@@ -66,12 +66,13 @@ export default function Header() {
           aria-expanded={open}
           aria-controls="primary-nav"
           onClick={() => setOpen((o) => !o)}
-          className="hidden h-11 w-11 cursor-pointer border-0 bg-transparent text-ivory max-[820px]:block"
+          className="hidden h-11 w-11 cursor-pointer border-0 bg-transparent text-ivory max-[820px]:-mr-2.5 max-[820px]:block"
         >
           <span className={burger} />
         </button>
 
-        <nav aria-label="Primary">
+        {/* On mobile the list is fixed, so the empty nav is taken out of the flex row */}
+        <nav aria-label="Primary" className="max-[820px]:absolute">
           <ul
             id="primary-nav"
             className={`${listBase} ${listMobile} ${listState}`}
