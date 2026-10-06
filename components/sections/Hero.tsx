@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import HeroVideo from "@/components/sections/HeroVideo";
 
 export default function Hero() {
   return (
@@ -8,17 +9,7 @@ export default function Hero() {
       className="relative isolate flex min-h-svh items-center overflow-hidden"
     >
       <div className="absolute inset-0 -z-20" aria-hidden="true">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/poster.jpg"
-          className="h-full w-full object-cover object-[50%_38%]"
-        >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
+        <HeroVideo />
       </div>
       <div
         aria-hidden="true"
