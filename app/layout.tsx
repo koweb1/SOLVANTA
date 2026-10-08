@@ -7,14 +7,12 @@ import { organizationJsonLd, siteConfig } from "@/lib/seo";
 
 const sora = Sora({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-sora",
   display: "swap",
 });
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-public-sans",
   display: "swap",
 });

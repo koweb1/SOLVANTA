@@ -13,7 +13,7 @@ const BAR_HEIGHTS = [34, 42, 48, 56, 64, 74, 86, 98];
 const FLAT_BAR = 22;
 
 // Timeline length in abstract units. Scroll position maps onto 0..TOTAL.
-const TOTAL = 10;
+const TOTAL = 12;
 
 const STATUS = {
   up: "Grid connected",
@@ -155,7 +155,7 @@ export default function SolutionStory() {
             scrollTrigger: {
               trigger: root,
               start: "top top",
-              end: mobile ? "+=240%" : "+=320%",
+              end: mobile ? "+=300%" : "+=380%",
               pin: true,
               scrub: 0.6,
               anticipatePin: 1,
@@ -197,8 +197,8 @@ export default function SolutionStory() {
           );
           tl.to(copySolution, { autoAlpha: 1, y: 0, duration: 0.8 }, 7.3);
 
-          // 9 to 10: hold the finished state briefly before the pin releases
-          tl.to({}, { duration: 1 }, 9);
+          // 9 to 12: hold the finished state so it can be read before the pin releases
+          tl.to({}, { duration: 3 }, 9);
 
           render(0);
 

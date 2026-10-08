@@ -18,9 +18,7 @@ const audiences = [
     href: "/residential",
     image: "/images/res.jpg",
     alt: "Installer fitting solar panels on a home rooftop",
-    problem: "Bills you cannot control and evenings that depend on the grid.",
-    solution:
-      "Lower bills and steady power for your home, with backup that keeps the lights on.",
+    line: "Lower bills and steady power for your home.",
     cta: "Explore residential",
   },
   {
@@ -30,10 +28,7 @@ const audiences = [
     href: "/commercial",
     image: "/images/com.jpg",
     alt: "Close-up of a commercial solar panel array",
-    problem:
-      "Power costs you cannot plan around and downtime whenever the grid fails.",
-    solution:
-      "Cut operating costs and keep your business running through outages.",
+    line: "Cut operating costs and keep your business running.",
     cta: "Explore commercial",
   },
 ] as const;
@@ -50,18 +45,20 @@ export default function AudienceSelector() {
 
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(
-          gsap.utils.toArray<HTMLElement>("[data-reveal]", root),
-          { autoAlpha: 0, y: 36 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.15,
-            scrollTrigger: { trigger: root, start: "top 80%", once: true },
-          },
-        );
+        // Each block reveals on its own, only once it is actually near the viewport.
+        gsap.utils.toArray<HTMLElement>("[data-reveal]", root).forEach((el) => {
+          gsap.fromTo(
+            el,
+            { autoAlpha: 0, y: 36 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: { trigger: el, start: "top 85%", once: true },
+            },
+          );
+        });
       });
 
       return () => mm.revert();
@@ -88,6 +85,15 @@ export default function AudienceSelector() {
       ref={rootRef}
       className="bg-ivory pt-[clamp(0px,2vw,24px)] pb-[clamp(72px,10vw,132px)] text-ink"
     >
+      {/* Mobile only: breathing room and a divider so the story fully leaves view first */}
+      <div aria-hidden="true" className="hidden max-[820px]:block">
+        <Container>
+          <div className="h-[clamp(96px,26svh,240px)]" />
+          <div className="h-px bg-line-light" />
+          <div className="h-[clamp(64px,16svh,160px)]" />
+        </Container>
+      </div>
+
       <Container>
         <div
           data-reveal
@@ -97,7 +103,7 @@ export default function AudienceSelector() {
             What are you powering?
           </h3>
           <p className="max-w-[40ch] text-steel">
-            Pick one to see the problem we solve and how we solve it for you.
+            Choose where you want clean, reliable power.
           </p>
         </div>
 
@@ -172,7 +178,7 @@ export default function AudienceSelector() {
             })}
           </div>
 
-          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:min-h-[560px]">
+          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:min-h-[440px]">
             {audiences.map((a, i) => {
               const active = i === current;
               return (
@@ -195,7 +201,7 @@ export default function AudienceSelector() {
                   />
                   <span
                     aria-hidden="true"
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,.1)_20%,rgba(11,20,38,.92)_100%)]"
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0)_45%,rgba(11,20,38,.88)_100%)]"
                   />
                   <div
                     className={`absolute inset-x-0 bottom-0 p-[clamp(24px,3vw,40px)] transition-[opacity,transform] delay-150 duration-500 motion-reduce:transition-none ${
@@ -204,19 +210,10 @@ export default function AudienceSelector() {
                         : "translate-y-3 opacity-0"
                     }`}
                   >
-                    <p className="font-head text-[.78rem] font-semibold tracking-[.2em] text-silver uppercase">
-                      The problem
+                    <p className="max-w-[30ch] font-head text-[clamp(1.3rem,2vw,1.7rem)] leading-[1.3] font-medium">
+                      {a.line}
                     </p>
-                    <p className="mt-2 max-w-[38ch] text-[1.05rem] text-ivory/85">
-                      {a.problem}
-                    </p>
-                    <p className="mt-6 font-head text-[.78rem] font-semibold tracking-[.2em] text-gold uppercase">
-                      What we do
-                    </p>
-                    <p className="mt-2 max-w-[34ch] font-head text-[clamp(1.3rem,2vw,1.7rem)] leading-[1.3] font-medium">
-                      {a.solution}
-                    </p>
-                    <div className="mt-7">
+                    <div className="mt-6">
                       <LinkArrow href={a.href} tone="dark">
                         {a.cta}
                       </LinkArrow>
