@@ -85,37 +85,37 @@ export default function AudienceSelector() {
       ref={rootRef}
       className="bg-ivory pt-[clamp(0px,2vw,24px)] pb-[clamp(72px,10vw,132px)] text-ink"
     >
-      {/* Mobile only: breathing room and a divider so the story fully leaves view first */}
+      {/* Mobile only: a short gap and a divider so the story clearly ends first */}
       <div aria-hidden="true" className="hidden max-[820px]:block">
         <Container>
-          <div className="h-[clamp(96px,26svh,240px)]" />
+          <div className="h-[clamp(40px,9svh,88px)]" />
           <div className="h-px bg-line-light" />
-          <div className="h-[clamp(64px,16svh,160px)]" />
+          <div className="h-[clamp(32px,6svh,56px)]" />
         </Container>
       </div>
 
       <Container>
         <div
           data-reveal
-          className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-8 opacity-0 motion-reduce:opacity-100"
+          className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-8 opacity-0 max-[820px]:mb-5 max-[820px]:gap-2 motion-reduce:opacity-100"
         >
-          <h3 className="max-w-[18ch] text-[clamp(2rem,3.6vw,3rem)]">
+          <h3 className="max-w-[18ch] text-[clamp(2rem,3.6vw,3rem)] max-[820px]:max-w-none max-[820px]:text-[1.5rem]">
             What are you powering?
           </h3>
-          <p className="max-w-[40ch] text-steel">
+          <p className="max-w-[40ch] text-steel max-[820px]:text-[.95rem]">
             Choose where you want clean, reliable power.
           </p>
         </div>
 
         <div
           data-reveal
-          className="grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-[clamp(24px,4vw,56px)] opacity-0 max-[980px]:grid-cols-1 motion-reduce:opacity-100"
+          className="grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-[clamp(24px,4vw,56px)] opacity-0 max-[980px]:grid-cols-1 max-[980px]:gap-4 motion-reduce:opacity-100"
         >
+          {/* Desktop: big vertical tabs. Mobile: a compact two-button switch. */}
           <div
             role="tablist"
             aria-label="What are you powering?"
-            aria-orientation="vertical"
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 max-[980px]:flex-row max-[980px]:gap-1.5 max-[980px]:rounded-full max-[980px]:border max-[980px]:border-line-light max-[980px]:p-1.5"
           >
             {audiences.map((a, i) => {
               const active = i === current;
@@ -134,7 +134,7 @@ export default function AudienceSelector() {
                   onClick={() => setCurrent(i)}
                   onMouseEnter={() => setCurrent(i)}
                   onKeyDown={(e) => onKeyDown(e, i)}
-                  className={`group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[10px] border px-6 py-6 text-left transition-colors duration-300 motion-reduce:transition-none ${
+                  className={`group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[10px] border px-6 py-6 text-left transition-colors duration-300 max-[980px]:flex-1 max-[980px]:justify-center max-[980px]:rounded-full max-[980px]:border-0 max-[980px]:px-4 max-[980px]:py-3 max-[980px]:text-center motion-reduce:transition-none ${
                     active
                       ? "border-ink bg-ink text-ivory"
                       : "border-line-light text-ink hover:border-ink"
@@ -142,18 +142,18 @@ export default function AudienceSelector() {
                 >
                   <span className="flex items-center gap-5">
                     <span
-                      className={`font-head text-[.85rem] font-semibold ${
+                      className={`font-head text-[.85rem] font-semibold max-[980px]:hidden ${
                         active ? "text-gold" : "text-steel"
                       }`}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span>
-                      <span className="block font-head text-[clamp(1.6rem,2.6vw,2.4rem)] leading-[1.1] font-semibold tracking-[-.02em]">
+                      <span className="block font-head text-[clamp(1.6rem,2.6vw,2.4rem)] leading-[1.1] font-semibold tracking-[-.02em] max-[980px]:text-[1rem]">
                         {a.label}
                       </span>
                       <span
-                        className={`mt-1 block text-[.9rem] ${
+                        className={`mt-1 block text-[.9rem] max-[980px]:hidden ${
                           active ? "text-silver" : "text-steel"
                         }`}
                       >
@@ -169,7 +169,7 @@ export default function AudienceSelector() {
                     strokeWidth={1.5}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none"
+                    className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1 max-[980px]:hidden motion-reduce:transition-none"
                   >
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
@@ -178,7 +178,7 @@ export default function AudienceSelector() {
             })}
           </div>
 
-          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:min-h-[440px]">
+          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:min-h-[400px]">
             {audiences.map((a, i) => {
               const active = i === current;
               return (
