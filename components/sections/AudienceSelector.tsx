@@ -17,7 +17,8 @@ const audiences = [
     caption: "For homes",
     href: "/residential",
     image: "/images/res.jpg",
-    alt: "Installer fitting solar panels on a home rooftop",
+    position: "object-center",
+    alt: "Modern home with solar panels on a flat roof at dusk",
     line: "Lower bills and steady power for your home.",
     cta: "Explore residential",
   },
@@ -27,7 +28,8 @@ const audiences = [
     caption: "For businesses",
     href: "/commercial",
     image: "/images/com.jpg",
-    alt: "Close-up of a commercial solar panel array",
+    position: "object-[50%_52%]",
+    alt: "Aerial view of a factory rooftop covered in solar panels",
     line: "Cut operating costs and keep your business running.",
     cta: "Explore commercial",
   },
@@ -178,7 +180,7 @@ export default function AudienceSelector() {
             })}
           </div>
 
-          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:min-h-[400px]">
+          <div className="relative min-h-[520px] overflow-hidden rounded-[10px] bg-navy text-ivory max-[980px]:h-[440px] max-[980px]:min-h-0">
             {audiences.map((a, i) => {
               const active = i === current;
               return (
@@ -188,32 +190,33 @@ export default function AudienceSelector() {
                   role="tabpanel"
                   aria-labelledby={`tab-${a.id}`}
                   inert={!active}
-                  className={`absolute inset-0 ${active ? "" : "pointer-events-none"}`}
+                  className={`absolute inset-0 flex flex-col ${active ? "" : "pointer-events-none"}`}
                 >
-                  <Image
-                    src={a.image}
-                    alt={a.alt}
-                    fill
-                    sizes="(max-width: 980px) 100vw, 58vw"
-                    className={`object-cover transition-all duration-700 ease-out motion-reduce:transition-none ${
-                      active ? "scale-100 opacity-100" : "scale-105 opacity-0"
-                    }`}
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,20,38,0)_45%,rgba(11,20,38,.88)_100%)]"
-                  />
+                  {/* Image area: fills the space above the caption on mobile, the whole panel on desktop */}
+                  <div className="relative min-h-0 flex-1 min-[981px]:absolute min-[981px]:inset-0">
+                    <Image
+                      src={a.image}
+                      alt={a.alt}
+                      fill
+                      sizes="(max-width: 980px) 100vw, 58vw"
+                      className={`object-cover ${a.position} transition-all duration-700 ease-out motion-reduce:transition-none ${
+                        active ? "scale-100 opacity-100" : "scale-105 opacity-0"
+                      }`}
+                    />
+                  </div>
+
+                  {/* Caption: solid bar under the image on mobile, frosted card on desktop */}
                   <div
-                    className={`absolute inset-x-0 bottom-0 p-[clamp(24px,3vw,40px)] transition-[opacity,transform] delay-150 duration-500 motion-reduce:transition-none ${
+                    className={`relative bg-navy p-5 transition-[opacity,transform] delay-150 duration-500 min-[981px]:absolute min-[981px]:bottom-6 min-[981px]:left-6 min-[981px]:max-w-[380px] min-[981px]:rounded-[10px] min-[981px]:bg-navy/80 min-[981px]:p-6 min-[981px]:backdrop-blur-md motion-reduce:transition-none ${
                       active
                         ? "translate-y-0 opacity-100"
                         : "translate-y-3 opacity-0"
                     }`}
                   >
-                    <p className="max-w-[30ch] font-head text-[clamp(1.3rem,2vw,1.7rem)] leading-[1.3] font-medium">
+                    <p className="font-head text-[1.15rem] leading-[1.3] font-medium min-[981px]:text-[1.35rem]">
                       {a.line}
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-4 min-[981px]:mt-5">
                       <LinkArrow href={a.href} tone="dark">
                         {a.cta}
                       </LinkArrow>
