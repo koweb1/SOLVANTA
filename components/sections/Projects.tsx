@@ -8,17 +8,26 @@ const projects = [
   {
     image: "/images/p1.jpg",
     alt: "Installer laying a solar panel on a rooftop",
-    meta: "Location · Residential",
+    name: "Lekki Family Residence",
+    location: "Lekki, Lagos",
+    type: "Residential",
+    size: "8 kW",
   },
   {
     image: "/images/p2.jpg",
     alt: "Solar panel secured with a mounting clamp",
-    meta: "Location · Commercial",
+    name: "Ikeja Distribution Warehouse",
+    location: "Ikeja, Lagos",
+    type: "Commercial",
+    size: "120 kW",
   },
   {
     image: "/images/p3.jpg",
     alt: "Mounting rail being fitted on a flat roof",
-    meta: "Location · Residential",
+    name: "Maitama Townhouse",
+    location: "Maitama, Abuja",
+    type: "Residential",
+    size: "6 kW",
   },
 ];
 
@@ -56,14 +65,19 @@ export default function Projects() {
               />
               <div className="flex w-full items-end justify-between gap-4 px-7 py-[26px]">
                 <div>
-                  <h3 className="mb-1 text-[1.2rem]">Project name</h3>
+                  <h3 className="mb-1 text-[1.2rem]">{project.name}</h3>
                   <small className="text-[.9rem] text-ivory/80">
-                    {project.meta}
+                    {project.location} · {project.type}
                   </small>
                 </div>
-                <span className="font-head font-semibold whitespace-nowrap text-gold">
-                  00 kW
-                </span>
+                <div className="text-right whitespace-nowrap">
+                  <span className="block font-head text-[1.15rem] font-semibold text-gold">
+                    {project.size}
+                  </span>
+                  <span className="block text-[.7rem] tracking-[.14em] text-ivory/70 uppercase">
+                    System size
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
