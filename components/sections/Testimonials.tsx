@@ -6,21 +6,21 @@ const testimonials = [
   {
     name: "Adaeze Okonkwo",
     role: "Homeowner",
-    image: "/images/clients/client-1.jpg",
+    image: "/images/client-1.jpg",
     quote:
       "Our generator bill was the biggest line in the household budget. Since the install I barely think about it, and the lights stayed on through the last outage.",
   },
   {
     name: "Tunde Bakare",
     role: "Operations manager, bakery",
-    image: "/images/clients/client-2.jpg",
+    image: "/images/client-2.jpg",
     quote:
       "We used to lose a production day every time the grid dropped. Now the ovens keep running, and the team told us what to expect from the quote right through to commissioning.",
   },
   {
     name: "Funmilayo Adeyemi",
     role: "Homeowner and consultant",
-    image: "/images/clients/client-3.jpg",
+    image: "/images/client-3.jpg",
     quote:
       "They explained the sizing in plain terms, and the final invoice matched the quote. No surprises, which is rare. I work from home and the power is steady now.",
   },
@@ -71,7 +71,7 @@ export default function Testimonials() {
                 </div>
               </figcaption>
             </figure>
-          ))}
+          ))} 
         </div>
       </Container>
     </section>
