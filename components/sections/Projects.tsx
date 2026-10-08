@@ -7,27 +7,27 @@ import SectionHead from "@/components/ui/SectionHead";
 const projects = [
   {
     image: "/images/p1.jpg",
-    alt: "Installer laying a solar panel on a rooftop",
-    name: "Lekki Family Residence",
+    alt: "Apartment complex with solar panels across its flat roofs",
+    name: "Lekki Court Apartments",
     location: "Lekki, Lagos",
     type: "Residential",
-    size: "8 kW",
-  },
-  {
-    image: "/images/p2.jpg",
-    alt: "Solar panel secured with a mounting clamp",
-    name: "Ikeja Distribution Warehouse",
-    location: "Ikeja, Lagos",
-    type: "Commercial",
     size: "120 kW",
   },
   {
+    image: "/images/p2.jpg",
+    alt: "Aerial view of a car park covered in solar canopies",
+    name: "Ikeja Business Park",
+    location: "Ikeja, Lagos",
+    type: "Commercial",
+    size: "300 kW",
+  },
+  {
     image: "/images/p3.jpg",
-    alt: "Mounting rail being fitted on a flat roof",
-    name: "Maitama Townhouse",
+    alt: "Mid-rise building with a solar canopy over its rooftop terrace",
+    name: "Maitama Residences",
     location: "Maitama, Abuja",
     type: "Residential",
-    size: "6 kW",
+    size: "22 kW",
   },
 ];
 
@@ -61,16 +61,23 @@ export default function Projects() {
               />
               <span
                 aria-hidden="true"
-                className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,20,38,0)_40%,rgba(11,20,38,.88)_100%)]"
+                className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,20,38,0)_35%,rgba(11,20,38,.9)_100%)]"
               />
-              <div className="flex w-full items-end justify-between gap-4 px-7 py-[26px]">
-                <div>
-                  <h3 className="mb-1 text-[1.2rem]">{project.name}</h3>
-                  <small className="text-[.9rem] text-ivory/80">
-                    {project.location} · {project.type}
-                  </small>
+              <div className="flex w-full items-end justify-between gap-4 px-7 py-[26px] max-[560px]:gap-3 max-[560px]:px-5 max-[560px]:py-5">
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-2 text-[1.2rem] leading-[1.25]">
+                    {project.name}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    <span className="text-[.9rem] text-ivory/80">
+                      {project.location}
+                    </span>
+                    <span className="rounded-full border border-ivory/30 px-2.5 py-0.5 text-[.68rem] font-semibold tracking-[.12em] text-ivory/85 uppercase">
+                      {project.type}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right whitespace-nowrap">
+                <div className="shrink-0 text-right whitespace-nowrap">
                   <span className="block font-head text-[1.15rem] font-semibold text-gold">
                     {project.size}
                   </span>
