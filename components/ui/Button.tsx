@@ -14,12 +14,12 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex cursor-pointer items-center justify-center gap-[.5em] rounded-full border-[1.5px] border-transparent font-head font-semibold transition-colors duration-200";
+  "inline-flex cursor-pointer items-center justify-center gap-[.5em] rounded-full border-[1.5px] font-head font-semibold transition-colors duration-200";
 
 const variants: Record<Variant, string> = {
-  gold: "bg-gold text-[#1a1204] hover:bg-[#ffbd5c]",
+  gold: "border-transparent bg-gold text-[#1a1204] hover:bg-[#ffbd5c]",
   ghost: "border-ivory/55 text-ivory hover:border-ivory hover:bg-ivory/10",
-  dark: "border-ink text-ink hover:bg-ink hover:text-ivory",
+  dark: "border-ink bg-ink text-ivory hover:border-gold hover:bg-gold hover:text-[#1a1204]",
 };
 
 const sizes: Record<Size, string> = {
