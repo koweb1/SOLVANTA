@@ -1,7 +1,15 @@
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 
-export default function FinalCta() {
+type FinalCtaProps = {
+  title?: string;
+  description?: string;
+};
+
+export default function FinalCta({
+  title = "Ready to power your future?",
+  description = "Tell us about your property and your electricity bill. We will come back with a clear plan and a quote.",
+}: FinalCtaProps) {
   return (
     <section
       id="quote"
@@ -27,12 +35,9 @@ export default function FinalCta() {
 
       <Container>
         <h2 className="max-w-[16ch] text-[clamp(2.2rem,4.6vw,3.8rem)]">
-          Ready to power your future?
+          {title}
         </h2>
-        <p className="mt-5 text-[1.1rem] text-silver">
-          Tell us about your property and your electricity bill. We will come
-          back with a clear plan and a quote.
-        </p>
+        <p className="mt-5 text-[1.1rem] text-silver">{description}</p>
         <div className="mt-9 flex flex-wrap gap-3.5">
           <Button href="/contact" className="max-[560px]:flex-[1_1_100%]">
             Get a Free Quote

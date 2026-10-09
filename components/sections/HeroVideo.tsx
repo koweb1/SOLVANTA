@@ -2,7 +2,17 @@
 
 import { useEffect, useRef } from "react";
 
-export default function HeroVideo() {
+type HeroVideoProps = {
+  src?: string;
+  poster?: string;
+  className?: string;
+};
+
+export default function HeroVideo({
+  src = "/videos/hero.mp4",
+  poster = "/images/poster.jpg",
+  className = "h-full w-full object-cover object-[50%_38%]",
+}: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -26,10 +36,10 @@ export default function HeroVideo() {
       loop
       playsInline
       preload="auto"
-      poster="/images/poster.jpg"
-      className="h-full w-full object-cover object-[50%_38%]"
+      poster={poster}
+      className={className}
     >
-      <source src="/videos/hero.mp4" type="video/mp4" />
+      <source src={src} type="video/mp4" />
     </video>
   );
 }

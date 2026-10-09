@@ -12,6 +12,21 @@
   --color-gold-deep: #d98e1f;
   --color-line-dark: rgba(244, 243, 239, 0.14);
   --color-line-light: rgba(18, 26, 43, 0.14);
+
+  --animate-flow: flow 1.2s linear infinite;
+  --animate-flow-v: flow-v 1.2s linear infinite;
+
+  @keyframes flow {
+    to {
+      background-position: 16px 0;
+    }
+  }
+
+  @keyframes flow-v {
+    to {
+      background-position: 0 16px;
+    }
+  }
 }
 
 @theme inline {
