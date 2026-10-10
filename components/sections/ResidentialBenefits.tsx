@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import LineIcon from "@/components/ui/LineIcon";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
 
 type Benefit = { title: string; text: string; icon: ReactNode };
@@ -48,12 +49,18 @@ export default function ResidentialBenefits() {
   return (
     <section id="why" className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink">
       <Container>
-        <SectionHead
-          title="Why homeowners choose solar"
-          description="Solar with storage gives you steady power and a lower bill, whatever the grid is doing."
-        />
+        <Reveal>
+          <SectionHead
+            title="Why homeowners choose solar"
+            description="Solar with storage gives you steady power and a lower bill, whatever the grid is doing."
+          />
+        </Reveal>
 
-        <ul className="grid grid-cols-4 gap-[clamp(24px,3vw,48px)] max-[980px]:grid-cols-2 max-[560px]:grid-cols-1 max-[560px]:gap-8">
+        <Reveal
+          as="ul"
+          stagger={0.12}
+          className="grid grid-cols-4 gap-[clamp(24px,3vw,48px)] max-[980px]:grid-cols-2 max-[560px]:grid-cols-1 max-[560px]:gap-8"
+        >
           {benefits.map((benefit) => (
             <li
               key={benefit.title}
@@ -72,7 +79,7 @@ export default function ResidentialBenefits() {
               </p>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </Container>
     </section>
   );

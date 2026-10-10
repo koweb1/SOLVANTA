@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import LineIcon from "@/components/ui/LineIcon";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
+import Sequence from "@/components/ui/Sequence";
 
 type Appliance = { label: string; icon: ReactNode };
 
@@ -192,7 +194,8 @@ function splitUnit(value: string) {
     : { amount: value, unit: null };
 }
 
-/* Decorative size illustration: filled slots show how big each system is. */
+/* Decorative size illustration: filled slots show how big each system is.
+   The filled slots switch on one by one when the card scrolls into view. */
 function TierVisual({
   panels,
   batteries,
@@ -201,100 +204,107 @@ function TierVisual({
   batteries: number;
 }) {
   return (
-    <div
-      aria-hidden="true"
-      className="rounded-[10px] border border-line-dark bg-navy p-5 max-[560px]:p-4"
-    >
-      <div className="mb-4 flex items-center justify-between text-[.7rem] font-semibold tracking-[.16em] text-silver uppercase">
-        <span>Solar panels</span>
-        <span>Battery</span>
-      </div>
+    <div aria-hidden="true">
+      <Sequence
+        delay={0.25}
+        className="rounded-[10px] border border-line-dark bg-navy p-5 max-[560px]:p-4"
+      >
+        <div className="mb-4 flex items-center justify-between text-[.7rem] font-semibold tracking-[.16em] text-silver uppercase">
+          <span>Solar panels</span>
+          <span>Battery</span>
+        </div>
 
-      <svg viewBox="0 0 360 126" className="block h-auto w-full">
-        {Array.from({ length: COLS * ROWS }).map((_, i) => {
-          const x = (i % COLS) * 40;
-          const y = 6 + Math.floor(i / COLS) * 30;
-          const filled = i < panels;
-          return filled ? (
-            <g key={i}>
+        <svg viewBox="0 0 360 126" className="block h-auto w-full">
+          {Array.from({ length: COLS * ROWS }).map((_, i) => {
+            const x = (i % COLS) * 40;
+            const y = 6 + Math.floor(i / COLS) * 30;
+            const filled = i < panels;
+            return filled ? (
+              <g key={i} data-seq="cell">
+                <rect
+                  x={x}
+                  y={y}
+                  width="34"
+                  height="24"
+                  rx="3"
+                  className="fill-steel stroke-silver"
+                />
+                <path
+                  d={`M${x + 17} ${y}v24M${x} ${y + 12}h34`}
+                  className="stroke-silver/50"
+                />
+              </g>
+            ) : (
               <rect
+                key={i}
                 x={x}
                 y={y}
                 width="34"
                 height="24"
                 rx="3"
-                className="fill-steel stroke-silver"
+                strokeDasharray="3 3"
+                className="fill-none stroke-silver/30"
               />
-              <path
-                d={`M${x + 17} ${y}v24M${x} ${y + 12}h34`}
-                className="stroke-silver/50"
+            );
+          })}
+
+          <g data-seq="fade">
+            <path
+              d="M246 63h26"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+              strokeLinecap="round"
+              className="stroke-gold"
+            />
+            <path
+              d="M268 58l6 5-6 5"
+              fill="none"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="stroke-gold"
+            />
+          </g>
+
+          <rect
+            x="318"
+            y="0"
+            width="20"
+            height="5"
+            rx="1.5"
+            className="fill-silver/60"
+          />
+          {/* Drawn bottom to top so the battery fills upward */}
+          {Array.from({ length: 4 }).map((_, k) => {
+            const j = 3 - k;
+            const y = 6 + j * 30;
+            const filled = j >= 4 - batteries;
+            return filled ? (
+              <rect
+                key={j}
+                data-seq="cell"
+                x="296"
+                y={y}
+                width="64"
+                height="24"
+                rx="4"
+                className="fill-gold stroke-gold-deep"
               />
-            </g>
-          ) : (
-            <rect
-              key={i}
-              x={x}
-              y={y}
-              width="34"
-              height="24"
-              rx="3"
-              strokeDasharray="3 3"
-              className="fill-none stroke-silver/30"
-            />
-          );
-        })}
-
-        <path
-          d="M246 63h26"
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-          strokeLinecap="round"
-          className="stroke-gold"
-        />
-        <path
-          d="M268 58l6 5-6 5"
-          fill="none"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="stroke-gold"
-        />
-
-        <rect
-          x="318"
-          y="0"
-          width="20"
-          height="5"
-          rx="1.5"
-          className="fill-silver/60"
-        />
-        {Array.from({ length: 4 }).map((_, j) => {
-          const y = 6 + j * 30;
-          const filled = j >= 4 - batteries;
-          return filled ? (
-            <rect
-              key={j}
-              x="296"
-              y={y}
-              width="64"
-              height="24"
-              rx="4"
-              className="fill-gold stroke-gold-deep"
-            />
-          ) : (
-            <rect
-              key={j}
-              x="296"
-              y={y}
-              width="64"
-              height="24"
-              rx="4"
-              strokeDasharray="3 3"
-              className="fill-none stroke-silver/30"
-            />
-          );
-        })}
-      </svg>
+            ) : (
+              <rect
+                key={j}
+                x="296"
+                y={y}
+                width="64"
+                height="24"
+                rx="4"
+                strokeDasharray="3 3"
+                className="fill-none stroke-silver/30"
+              />
+            );
+          })}
+        </svg>
+      </Sequence>
     </div>
   );
 }
@@ -306,14 +316,17 @@ export default function ResidentialSizes() {
       className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink"
     >
       <Container>
-        <SectionHead
-          title="Pick a system that fits your home"
-          description="Sizing depends on what you run. These three starting points cover most homes, and we adjust them after a site assessment."
-        />
+        <Reveal>
+          <SectionHead
+            title="Pick a system that fits your home"
+            description="Sizing depends on what you run. These three starting points cover most homes, and we adjust them after a site assessment."
+          />
+        </Reveal>
 
         <div className="border-t border-line-light max-[560px]:grid max-[560px]:gap-14 max-[560px]:border-t-0">
           {tiers.map((tier) => (
-            <article
+            <Reveal
+              as="article"
               key={tier.name}
               className="grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-start gap-[clamp(24px,5vw,80px)] border-b border-line-light py-11 max-[980px]:grid-cols-1 max-[980px]:gap-7 max-[560px]:border-b-0 max-[560px]:py-0"
             >
@@ -377,7 +390,7 @@ export default function ResidentialSizes() {
                   })}
                 </dl>
               </div>
-            </article>
+            </Reveal>
           ))}
         </div>
 

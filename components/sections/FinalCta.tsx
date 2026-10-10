@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 
 type FinalCtaProps = {
   title?: string;
@@ -34,22 +35,24 @@ export default function FinalCta({
       </svg>
 
       <Container>
-        <h2 className="max-w-[16ch] text-[clamp(2.2rem,4.6vw,3.8rem)]">
-          {title}
-        </h2>
-        <p className="mt-5 text-[1.1rem] text-silver">{description}</p>
-        <div className="mt-9 flex flex-wrap gap-3.5">
-          <Button href="/contact" className="max-[560px]:flex-[1_1_100%]">
-            Get a Free Quote
-          </Button>
-          <Button
-            href="https://wa.me/0000000000"
-            variant="ghost"
-            className="max-[560px]:flex-[1_1_100%]"
-          >
-            Chat on WhatsApp
-          </Button>
-        </div>
+        <Reveal stagger={0.14}>
+          <h2 className="max-w-[16ch] text-[clamp(2.2rem,4.6vw,3.8rem)]">
+            {title}
+          </h2>
+          <p className="mt-5 text-[1.1rem] text-silver">{description}</p>
+          <div className="mt-9 flex flex-wrap gap-3.5">
+            <Button href="/contact" className="max-[560px]:flex-[1_1_100%]">
+              Get a Free Quote
+            </Button>
+            <Button
+              href="https://wa.me/0000000000"
+              variant="ghost"
+              className="max-[560px]:flex-[1_1_100%]"
+            >
+              Chat on WhatsApp
+            </Button>
+          </div>
+        </Reveal>
       </Container>
     </section>
   );

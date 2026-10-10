@@ -1,5 +1,7 @@
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
+import Sequence from "@/components/ui/Sequence";
 
 const steps = [
   {
@@ -35,6 +37,9 @@ const included = [
   "After-sales support",
 ];
 
+// Seconds between one step and the next. The line takes 4 x this to reach step 5.
+const STEP = 0.4;
+
 export default function ResidentialInstallation() {
   return (
     <section
@@ -42,50 +47,73 @@ export default function ResidentialInstallation() {
       className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink"
     >
       <Container>
-        <SectionHead
-          title="From first visit to first saving"
-          description="One team handles the whole job, from your roof to your battery."
-        />
+        <Reveal>
+          <SectionHead
+            title="From first visit to first saving"
+            description="One team handles the whole job, from your roof to your battery."
+          />
+        </Reveal>
 
-        <ol className="relative grid grid-cols-5 before:absolute before:top-[27px] before:right-[20%] before:left-0 before:h-[1.5px] before:bg-[linear-gradient(90deg,var(--color-steel),var(--color-gold))] before:content-[''] max-[980px]:grid-cols-1 max-[980px]:before:hidden">
-          {steps.map((step, i) => {
-            const last = i === steps.length - 1;
-            return (
-              <li
-                key={step.title}
-                className="relative pr-8 max-[980px]:grid max-[980px]:grid-cols-[44px_1fr] max-[980px]:gap-x-5 max-[980px]:pr-0 max-[980px]:pb-10 max-[980px]:last:pb-0"
-              >
-                {/* Small screens only: vertical line down to the next step */}
-                {!last && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-[52px] bottom-2 left-[21px] hidden w-[1.5px] bg-gold/70 max-[980px]:block"
-                  />
-                )}
+        <Sequence className="relative">
+          {/* Large screens: one line drawn across, timed to the circles */}
+          <span
+            aria-hidden="true"
+            data-seq="line"
+            data-seq-pos="0"
+            data-seq-dur={STEP * 4}
+            className="absolute top-[27px] right-[20%] left-0 h-[1.5px] bg-gold/70 max-[1100px]:hidden"
+          />
 
-                <div
-                  className={`relative mb-7 grid h-14 w-14 place-items-center rounded-full border-[1.5px] font-head text-[1.1rem] font-semibold max-[980px]:mb-0 max-[980px]:row-span-2 max-[980px]:h-11 max-[980px]:w-11 max-[980px]:text-base ${
-                    last
-                      ? "border-gold bg-gold text-[#1a1204]"
-                      : "border-steel bg-ivory"
-                  }`}
+          <ol className="grid grid-cols-5 max-[1100px]:grid-cols-1">
+            {steps.map((step, i) => {
+              const last = i === steps.length - 1;
+              const at = i * STEP;
+              return (
+                <li
+                  key={step.title}
+                  className="relative pr-[clamp(28px,3.6vw,56px)] max-[1100px]:grid max-[1100px]:grid-cols-[44px_1fr] max-[1100px]:gap-x-5 max-[1100px]:pr-0 max-[1100px]:pb-10 max-[1100px]:last:pb-0"
                 >
-                  {i + 1}
-                </div>
+                  {/* Smaller screens only: vertical line down to the next step */}
+                  {!last && (
+                    <span
+                      aria-hidden="true"
+                      data-seq="line"
+                      data-seq-pos={at + 0.25}
+                      data-seq-dur="0.4"
+                      className="absolute top-[52px] bottom-2 left-[21px] hidden w-[1.5px] bg-gold/70 max-[1100px]:block"
+                    />
+                  )}
 
-                <h3 className="mb-2.5 text-[1.25rem] max-[980px]:mt-2.5 max-[980px]:mb-1.5 max-[980px]:text-[1.15rem]">
-                  {step.title}
-                </h3>
-                <p className="text-[.97rem] text-steel max-[980px]:text-[.95rem]">
-                  {step.text}
-                </p>
-              </li>
-            );
-          })}
-        </ol>
+                  <div
+                    data-seq="pop"
+                    data-seq-pos={at}
+                    className="relative mb-7 grid h-14 w-14 place-items-center rounded-full bg-gold font-head text-[1.1rem] font-semibold text-[#1a1204] max-[1100px]:mb-0 max-[1100px]:row-span-2 max-[1100px]:h-11 max-[1100px]:w-11 max-[1100px]:text-base"
+                  >
+                    {i + 1}
+                  </div>
+
+                  <h3
+                    data-seq="text"
+                    data-seq-pos={at + 0.15}
+                    className="mb-2.5 text-[1.25rem] max-[1100px]:mt-2.5 max-[1100px]:mb-1.5 max-[1100px]:text-[1.15rem]"
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    data-seq="text"
+                    data-seq-pos={at + 0.25}
+                    className="text-[.97rem] text-steel max-[1100px]:text-[.95rem]"
+                  >
+                    {step.text}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </Sequence>
 
         <div className="mt-[clamp(56px,7vw,96px)] grid grid-cols-[minmax(0,4fr)_minmax(0,8fr)] gap-[clamp(32px,6vw,96px)] border-t border-line-light pt-[clamp(40px,5vw,64px)] max-[980px]:grid-cols-1">
-          <div>
+          <Reveal>
             <h2 className="text-[clamp(1.7rem,2.8vw,2.3rem)]">
               What is included
             </h2>
@@ -93,9 +121,13 @@ export default function ResidentialInstallation() {
               Every residential installation covers the full job, from mounting
               to handover.
             </p>
-          </div>
+          </Reveal>
 
-          <ul className="grid grid-cols-2 gap-x-10 gap-y-4 max-[560px]:grid-cols-1">
+          <Reveal
+            as="ul"
+            stagger={0.07}
+            className="grid grid-cols-2 gap-x-10 gap-y-4 max-[560px]:grid-cols-1"
+          >
             {included.map((item) => (
               <li key={item} className="flex items-start gap-3.5">
                 <svg
@@ -114,7 +146,7 @@ export default function ResidentialInstallation() {
                 <span>{item}</span>
               </li>
             ))}
-          </ul>
+          </Reveal>
         </div>
       </Container>
     </section>

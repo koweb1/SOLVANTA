@@ -1,4 +1,5 @@
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
 
 const faqs = [
@@ -59,9 +60,14 @@ export default function ResidentialFaq() {
         }}
       />
       <Container>
-        <SectionHead title="Questions homeowners ask" />
+        <Reveal>
+          <SectionHead title="Questions homeowners ask" />
+        </Reveal>
 
-        <div className="max-w-[860px] border-t border-line-light">
+        <Reveal
+          stagger={0.07}
+          className="max-w-[860px] border-t border-line-light"
+        >
           {faqs.map((faq) => (
             <details
               key={faq.question}
@@ -73,7 +79,7 @@ export default function ResidentialFaq() {
               <p className="max-w-[64ch] pb-[26px] text-steel">{faq.answer}</p>
             </details>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

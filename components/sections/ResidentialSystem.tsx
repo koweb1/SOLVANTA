@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import LineIcon from "@/components/ui/LineIcon";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
+import Sequence from "@/components/ui/Sequence";
 
 const dashH =
   "bg-[repeating-linear-gradient(90deg,var(--color-gold)_0_8px,transparent_8px_16px)] bg-[length:16px_2px] motion-safe:animate-flow";
@@ -19,6 +21,7 @@ type FlowNodeProps = {
 function FlowNode({ title, text, icon, className, highlight }: FlowNodeProps) {
   return (
     <div
+      data-seq="node"
       className={`rounded-lg border bg-navy-2 px-[26px] pt-[26px] pb-[28px] max-[820px]:h-auto max-[560px]:px-4 max-[560px]:pt-5 max-[560px]:pb-5 ${
         highlight ? "border-gold/55" : "border-line-dark"
       } ${className}`}
@@ -41,6 +44,7 @@ function Connector({ className }: { className: string }) {
   return (
     <div
       aria-hidden="true"
+      data-seq="line"
       className={`mx-[10px] h-[2px] ${dashH} max-[820px]:mx-auto max-[820px]:h-10 max-[820px]:w-0.5 max-[820px]:bg-[repeating-linear-gradient(180deg,var(--color-gold)_0_8px,transparent_8px_16px)] max-[820px]:bg-[length:2px_16px] max-[820px]:motion-safe:animate-flow-v ${className}`}
     />
   );
@@ -52,6 +56,8 @@ function BranchConnector({ className }: { className: string }) {
   return (
     <div
       aria-hidden="true"
+      data-seq="line"
+      data-seq-dir="down"
       className={`relative mx-[10px] h-[2px] ${dashH} max-[820px]:mx-0 max-[820px]:h-12 max-[820px]:bg-none max-[820px]:motion-safe:animate-none ${className}`}
     >
       <span
@@ -74,13 +80,15 @@ export default function ResidentialSystem() {
   return (
     <section id="system" className="bg-navy py-[clamp(72px,10vw,132px)]">
       <Container>
-        <SectionHead
-          tone="dark"
-          title="How your system works"
-          description="Panels make the power, the inverter manages it, and the battery keeps the extra for when you need it."
-        />
+        <Reveal>
+          <SectionHead
+            tone="dark"
+            title="How your system works"
+            description="Panels make the power, the inverter manages it, and the battery keeps the extra for when you need it."
+          />
+        </Reveal>
 
-        <div className="grid grid-cols-[1fr_72px_1fr_72px_1fr] grid-rows-[auto_auto] items-center gap-x-0 gap-y-5 max-[820px]:grid-cols-2 max-[820px]:grid-rows-none max-[820px]:items-stretch max-[820px]:gap-x-4 max-[820px]:gap-y-0">
+        <Sequence className="grid grid-cols-[1fr_72px_1fr_72px_1fr] grid-rows-[auto_auto] items-center gap-x-0 gap-y-5 max-[820px]:grid-cols-2 max-[820px]:grid-rows-none max-[820px]:items-stretch max-[820px]:gap-x-4 max-[820px]:gap-y-0">
           <FlowNode
             title="Solar panels"
             text="Capture sunlight and turn it into electricity. We mount them securely on your roof and wire them in."
@@ -124,7 +132,7 @@ export default function ResidentialSystem() {
             highlight
             className="col-start-5 row-start-2 h-full max-[820px]:col-[2] max-[820px]:row-auto"
           />
-        </div>
+        </Sequence>
       </Container>
     </section>
   );
