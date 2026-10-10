@@ -49,7 +49,7 @@ export default function ResidentialBenefits() {
     <section id="why" className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink">
       <Container>
         <SectionHead
-          title="Why homeowners go solar"
+          title="Why homeowners choose solar"
           description="Solar with storage gives you steady power and a lower bill, whatever the grid is doing."
         />
 
