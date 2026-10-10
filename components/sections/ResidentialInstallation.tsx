@@ -47,13 +47,24 @@ export default function ResidentialInstallation() {
           description="One team handles the whole job, from your roof to your battery."
         />
 
-        <ol className="relative grid grid-cols-5 before:absolute before:top-[27px] before:right-[20%] before:left-0 before:h-[1.5px] before:bg-[linear-gradient(90deg,var(--color-steel),var(--color-gold))] before:content-[''] max-[980px]:grid-cols-2 max-[980px]:gap-y-11 max-[980px]:before:hidden max-[560px]:grid-cols-1">
+        <ol className="relative grid grid-cols-5 before:absolute before:top-[27px] before:right-[20%] before:left-0 before:h-[1.5px] before:bg-[linear-gradient(90deg,var(--color-steel),var(--color-gold))] before:content-[''] max-[980px]:grid-cols-1 max-[980px]:before:hidden">
           {steps.map((step, i) => {
             const last = i === steps.length - 1;
             return (
-              <li key={step.title} className="relative pr-8">
+              <li
+                key={step.title}
+                className="relative pr-8 max-[980px]:grid max-[980px]:grid-cols-[44px_1fr] max-[980px]:gap-x-5 max-[980px]:pr-0 max-[980px]:pb-10 max-[980px]:last:pb-0"
+              >
+                {/* Small screens only: vertical line down to the next step */}
+                {!last && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-[52px] bottom-2 left-[21px] hidden w-[1.5px] bg-gold/70 max-[980px]:block"
+                  />
+                )}
+
                 <div
-                  className={`relative mb-7 grid h-14 w-14 place-items-center rounded-full border-[1.5px] font-head text-[1.1rem] font-semibold ${
+                  className={`relative mb-7 grid h-14 w-14 place-items-center rounded-full border-[1.5px] font-head text-[1.1rem] font-semibold max-[980px]:mb-0 max-[980px]:row-span-2 max-[980px]:h-11 max-[980px]:w-11 max-[980px]:text-base ${
                     last
                       ? "border-gold bg-gold text-[#1a1204]"
                       : "border-steel bg-ivory"
@@ -61,8 +72,13 @@ export default function ResidentialInstallation() {
                 >
                   {i + 1}
                 </div>
-                <h3 className="mb-2.5 text-[1.25rem]">{step.title}</h3>
-                <p className="text-[.97rem] text-steel">{step.text}</p>
+
+                <h3 className="mb-2.5 text-[1.25rem] max-[980px]:mt-2.5 max-[980px]:mb-1.5 max-[980px]:text-[1.15rem]">
+                  {step.title}
+                </h3>
+                <p className="text-[.97rem] text-steel max-[980px]:text-[.95rem]">
+                  {step.text}
+                </p>
               </li>
             );
           })}
