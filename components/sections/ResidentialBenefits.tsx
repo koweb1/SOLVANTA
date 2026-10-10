@@ -53,14 +53,23 @@ export default function ResidentialBenefits() {
           description="Solar with storage gives you steady power and a lower bill, whatever the grid is doing."
         />
 
-        <ul className="grid grid-cols-4 gap-[clamp(24px,3vw,48px)] max-[980px]:grid-cols-2 max-[560px]:grid-cols-1">
+        <ul className="grid grid-cols-4 gap-[clamp(24px,3vw,48px)] max-[980px]:grid-cols-2 max-[560px]:grid-cols-1 max-[560px]:gap-8">
           {benefits.map((benefit) => (
-            <li key={benefit.title} className="border-t-2 border-ink pt-6">
-              <LineIcon className="mb-[18px] h-[34px] w-[34px] text-gold-deep">
-                {benefit.icon}
-              </LineIcon>
-              <h3 className="mb-2 text-[1.2rem]">{benefit.title}</h3>
-              <p className="text-[.97rem] text-steel">{benefit.text}</p>
+            <li
+              key={benefit.title}
+              className="border-t-2 border-ink pt-6 max-[560px]:grid max-[560px]:grid-cols-[48px_1fr] max-[560px]:gap-x-4 max-[560px]:border-t-0 max-[560px]:pt-0"
+            >
+              <div className="mb-[18px] max-[560px]:row-span-2 max-[560px]:mb-0 max-[560px]:grid max-[560px]:h-12 max-[560px]:w-12 max-[560px]:place-items-center max-[560px]:rounded-xl max-[560px]:bg-gold/15">
+                <LineIcon className="h-[34px] w-[34px] text-gold-deep max-[560px]:h-6 max-[560px]:w-6">
+                  {benefit.icon}
+                </LineIcon>
+              </div>
+              <h3 className="mb-2 text-[1.2rem] max-[560px]:mb-1 max-[560px]:text-[1.1rem]">
+                {benefit.title}
+              </h3>
+              <p className="text-[.97rem] text-steel max-[560px]:text-[.95rem]">
+                {benefit.text}
+              </p>
             </li>
           ))}
         </ul>
