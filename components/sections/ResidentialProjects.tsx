@@ -6,8 +6,17 @@ import Parallax from "@/components/ui/Parallax";
 import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
 
-// To add the third project, add one more object here. The layout adjusts by itself.
-const projects = [
+type Project = {
+  image: string;
+  alt: string;
+  name: string;
+  type: string;
+  location?: string;
+  size?: string;
+};
+
+// The first project is the large card. location and size are optional.
+const projects: Project[] = [
   {
     image: "/images/p1.jpg",
     alt: "Apartment complex with solar panels across its flat roofs",
@@ -24,13 +33,16 @@ const projects = [
     type: "Residential",
     size: "22 kW",
   },
+  {
+    // TODO: add the real location and system size for this project.
+    image: "/images/res.jpg",
+    alt: "Modern home with solar panels on a flat roof at dusk",
+    name: "Private residence",
+    type: "Residential",
+  },
 ];
 
 export default function ResidentialProjects() {
-  // With two projects both cards are tall. With three, the first is tall and
-  // the other two stack beside it.
-  const two = projects.length === 2;
-
   return (
     <section id="projects" className="bg-navy py-[clamp(72px,10vw,132px)]">
       <Container>
@@ -46,45 +58,46 @@ export default function ResidentialProjects() {
           stagger={0.15}
           className="grid h-[clamp(560px,62vw,760px)] grid-cols-[1.5fr_1fr] grid-rows-[1fr_1fr] gap-5 max-[980px]:h-auto max-[980px]:grid-cols-1 max-[980px]:grid-rows-none"
         >
-          {projects.map((project, i) => {
-            const tall = i === 0 || (two && i === 1);
-            return (
-              <Link
-                key={project.image}
-                href="/projects"
-                className={`group relative isolate flex items-end overflow-hidden rounded-[6px] ${
-                  tall
-                    ? "row-span-2 max-[980px]:row-auto max-[980px]:min-h-[420px]"
-                    : "max-[980px]:min-h-[340px]"
-                }`}
-              >
-                <Parallax className="-z-20">
-                  <Image
-                    src={project.image}
-                    alt={project.alt}
-                    fill
-                    sizes="(max-width: 980px) 100vw, 60vw"
-                    className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
-                  />
-                </Parallax>
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,20,38,0)_35%,rgba(11,20,38,.9)_100%)]"
+          {projects.map((project, i) => (
+            <Link
+              key={project.image}
+              href="/projects"
+              className={`group relative isolate flex items-end overflow-hidden rounded-[6px] ${
+                i === 0
+                  ? "row-span-2 max-[980px]:row-auto max-[980px]:min-h-[420px]"
+                  : "max-[980px]:min-h-[340px]"
+              }`}
+            >
+              <Parallax className="-z-20">
+                <Image
+                  src={project.image}
+                  alt={project.alt}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
                 />
-                <div className="flex w-full items-end justify-between gap-4 px-7 py-[26px] max-[560px]:gap-3 max-[560px]:px-5 max-[560px]:py-5">
-                  <div className="min-w-0 flex-1">
-                    <h3 className="mb-2 text-[1.2rem] leading-[1.25]">
-                      {project.name}
-                    </h3>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              </Parallax>
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,20,38,0)_35%,rgba(11,20,38,.9)_100%)]"
+              />
+              <div className="flex w-full items-end justify-between gap-4 px-7 py-[26px] max-[560px]:gap-3 max-[560px]:px-5 max-[560px]:py-5">
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-2 text-[1.2rem] leading-[1.25]">
+                    {project.name}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                    {project.location && (
                       <span className="text-[.9rem] text-ivory/80">
                         {project.location}
                       </span>
-                      <span className="rounded-full border border-ivory/30 px-2.5 py-0.5 text-[.68rem] font-semibold tracking-[.12em] text-ivory/85 uppercase">
-                        {project.type}
-                      </span>
-                    </div>
+                    )}
+                    <span className="rounded-full border border-ivory/30 px-2.5 py-0.5 text-[.68rem] font-semibold tracking-[.12em] text-ivory/85 uppercase">
+                      {project.type}
+                    </span>
                   </div>
+                </div>
+                {project.size && (
                   <div className="shrink-0 text-right whitespace-nowrap">
                     <span className="block font-head text-[1.15rem] font-semibold text-gold">
                       {project.size}
@@ -93,10 +106,10 @@ export default function ResidentialProjects() {
                       System size
                     </span>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
+                )}
+              </div>
+            </Link>
+          ))}
         </Reveal>
       </Container>
     </section>

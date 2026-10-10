@@ -105,12 +105,6 @@ export default function ResidentialBatteries() {
           </div>
         </Reveal>
 
-        {/* Remove this note once the real battery data is in. */}
-        <p className="mt-10 inline-block rounded-md border border-dashed border-line-dark px-3.5 py-2.5 text-[.85rem] text-silver">
-          Placeholder content. Replace with the real battery models, capacities,
-          and warranty terms before launch.
-        </p>
-
         <Reveal className="mt-7 flex flex-wrap items-center justify-between gap-6 rounded-lg border-l-[3px] border-gold bg-navy-2 px-[30px] py-[26px]">
           <div>
             <h3 className="mb-1 text-[1.15rem]">Already have solar panels?</h3>

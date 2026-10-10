@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Container from "@/components/ui/Container";
 import LineIcon from "@/components/ui/LineIcon";
+import Reveal from "@/components/ui/Reveal";
 
 type TrustItem = { title: string; text: string; icon: ReactNode };
 
@@ -67,7 +68,12 @@ export default function TrustStrip() {
       className="border-y border-line-dark bg-navy-2"
     >
       <Container>
-        <ul className="grid grid-cols-4 max-[980px]:grid-cols-2 max-[560px]:grid-cols-1">
+        <Reveal
+          as="ul"
+          variant="fade"
+          stagger={0.1}
+          className="grid grid-cols-4 max-[980px]:grid-cols-2 max-[560px]:grid-cols-1"
+        >
           {items.map((item, i) => (
             <li key={item.title} className={itemClasses(i)}>
               <LineIcon className="mt-[3px] h-[30px] w-[30px] flex-none text-gold">
@@ -83,7 +89,7 @@ export default function TrustStrip() {
               </div>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </Container>
     </section>
   );

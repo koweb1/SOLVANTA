@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 type LogoProps = {
   label: string;
 };
 
 export default function Logo({ label }: LogoProps) {
   return (
-    <a
-      href="#top"
+    <Link
+      href="/"
       aria-label={label}
       className="flex items-center gap-3 max-[560px]:gap-2.5"
     >
@@ -37,6 +39,6 @@ export default function Logo({ label }: LogoProps) {
           ENERGY SYSTEMS
         </span>
       </span>
-    </a>
+    </Link>
   );
 }

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import LineIcon from "@/components/ui/LineIcon";
+import Reveal from "@/components/ui/Reveal";
 
 type Reason = { title: string; text: string; icon: ReactNode };
 
@@ -39,7 +40,10 @@ export default function WhyChoose() {
   return (
     <section id="why" className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink">
       <Container className="grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-start gap-[clamp(40px,7vw,110px)] max-[980px]:grid-cols-1">
-        <div className="sticky top-[120px] max-[980px]:static">
+        <Reveal
+          variant="left"
+          className="sticky top-[120px] max-[980px]:static"
+        >
           <h2>Why customers choose Solvanta</h2>
           <p className="mt-[22px] text-steel">
             Solar is a long-term purchase. We build every system to keep working
@@ -48,9 +52,9 @@ export default function WhyChoose() {
           <Button href="/about" variant="dark" className="mt-8">
             About Solvanta
           </Button>
-        </div>
+        </Reveal>
 
-        <ul className="border-t border-line-light">
+        <Reveal as="ul" stagger={0.12} className="border-t border-line-light">
           {reasons.map((reason) => (
             <li
               key={reason.title}
@@ -65,7 +69,7 @@ export default function WhyChoose() {
               </div>
             </li>
           ))}
-        </ul>
+        </Reveal>
       </Container>
     </section>
   );

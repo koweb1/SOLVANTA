@@ -32,6 +32,31 @@
 @theme inline {
   --font-head: var(--font-sora), system-ui, sans-serif;
   --font-body: var(--font-public-sans), system-ui, sans-serif;
+
+  /* Hero entrance. Set --delay on the element to stagger, and --rise-y to
+     change the distance. "inline" lets those resolve on the element itself. */
+  --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s) both;
+  --animate-hero-zoom: hero-zoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise-y, 40px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 :root {

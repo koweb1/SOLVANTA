@@ -1,5 +1,7 @@
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
+import Sequence from "@/components/ui/Sequence";
 
 const steps = [
   {
@@ -20,43 +22,77 @@ const steps = [
   },
 ];
 
+// Seconds between one step and the next. The line takes 4 x this to cross the row.
+const STEP = 0.4;
+
 export default function HowItWorks() {
   return (
     <section id="how" className="bg-navy py-[clamp(72px,10vw,132px)]">
       <Container>
-        <SectionHead
-          tone="dark"
-          title="From first call to first saving"
-          description="One team handles the whole job, so you always know what happens next."
-        />
+        <Reveal>
+          <SectionHead
+            tone="dark"
+            title="From first call to first saving"
+            description="One team handles the whole job, so you always know what happens next."
+          />
+        </Reveal>
 
-        <ol className="relative grid grid-cols-4 before:absolute before:inset-x-0 before:top-[27px] before:h-[1.5px] before:bg-gold/70 before:content-[''] max-[980px]:grid-cols-1 max-[980px]:before:hidden">
-          {steps.map((step, i) => (
-            <li
-              key={step.title}
-              className="relative pr-8 max-[980px]:grid max-[980px]:grid-cols-[44px_1fr] max-[980px]:gap-x-5 max-[980px]:pr-0 max-[980px]:pb-10 max-[980px]:last:pb-0"
-            >
-              {/* Mobile only: vertical line down to the next step */}
-              {i < steps.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  className="absolute top-[52px] bottom-2 left-[21px] hidden w-[1.5px] bg-gold/70 max-[980px]:block"
-                />
-              )}
+        <Sequence className="relative">
+          {/* Large screens: one line drawn across, timed to the circles */}
+          <span
+            aria-hidden="true"
+            data-seq="line"
+            data-seq-pos="0"
+            data-seq-dur={STEP * 4}
+            className="absolute inset-x-0 top-[27px] h-[1.5px] bg-gold/70 max-[980px]:hidden"
+          />
 
-              <div className="relative mb-7 grid h-14 w-14 place-items-center rounded-full bg-gold font-head text-[1.1rem] font-semibold text-[#1a1204] max-[980px]:mb-0 max-[980px]:h-11 max-[980px]:w-11 max-[980px]:row-span-2 max-[980px]:text-base">
-                {i + 1}
-              </div>
+          <ol className="grid grid-cols-4 max-[980px]:grid-cols-1">
+            {steps.map((step, i) => {
+              const at = i * STEP;
+              return (
+                <li
+                  key={step.title}
+                  className="relative pr-8 max-[980px]:grid max-[980px]:grid-cols-[44px_1fr] max-[980px]:gap-x-5 max-[980px]:pr-0 max-[980px]:pb-10 max-[980px]:last:pb-0"
+                >
+                  {/* Mobile only: vertical line down to the next step */}
+                  {i < steps.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      data-seq="line"
+                      data-seq-pos={at + 0.25}
+                      data-seq-dur="0.4"
+                      className="absolute top-[52px] bottom-2 left-[21px] hidden w-[1.5px] bg-gold/70 max-[980px]:block"
+                    />
+                  )}
 
-              <h3 className="mb-2.5 text-[1.25rem] max-[980px]:mt-2.5 max-[980px]:mb-1.5 max-[980px]:text-[1.15rem]">
-                {step.title}
-              </h3>
-              <p className="text-[.97rem] text-silver max-[980px]:text-[.95rem]">
-                {step.text}
-              </p>
-            </li>
-          ))}
-        </ol>
+                  <div
+                    data-seq="pop"
+                    data-seq-pos={at}
+                    className="relative mb-7 grid h-14 w-14 place-items-center rounded-full bg-gold font-head text-[1.1rem] font-semibold text-[#1a1204] max-[980px]:mb-0 max-[980px]:h-11 max-[980px]:w-11 max-[980px]:row-span-2 max-[980px]:text-base"
+                  >
+                    {i + 1}
+                  </div>
+
+                  <h3
+                    data-seq="text"
+                    data-seq-pos={at + 0.15}
+                    className="mb-2.5 text-[1.25rem] max-[980px]:mt-2.5 max-[980px]:mb-1.5 max-[980px]:text-[1.15rem]"
+                  >
+                    {step.title}
+                  </h3>
+                  <p
+                    data-seq="text"
+                    data-seq-pos={at + 0.25}
+                    className="text-[.97rem] text-silver max-[980px]:text-[.95rem]"
+                  >
+                    {step.text}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </Sequence>
       </Container>
     </section>
   );

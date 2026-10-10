@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
-import { navLinks, quoteLink } from "@/utils/navigation";
+import { homeLink, navLinks, quoteLink } from "@/utils/navigation";
 
 const listBase = "flex items-center gap-[clamp(20px,3vw,44px)]";
 
 const listMobile =
-  "max-[820px]:fixed max-[820px]:inset-x-0 max-[820px]:top-[84px] max-[820px]:flex-col max-[820px]:items-start max-[820px]:gap-0 max-[820px]:border-b max-[820px]:border-line-dark max-[820px]:bg-navy max-[820px]:px-[var(--gutter)] max-[820px]:pt-2 max-[820px]:pb-7 max-[820px]:transition-all max-[820px]:duration-250";
+  "max-[820px]:fixed max-[820px]:inset-x-0 max-[820px]:top-[84px] max-[820px]:flex-col max-[820px]:items-start max-[820px]:gap-0 max-[820px]:border-b max-[820px]:border-line-dark max-[820px]:bg-navy max-[820px]:px-[var(--gutter)] max-[820px]:pt-2 max-[820px]:pb-7 max-[820px]:transition-all max-[820px]:duration-300 max-[820px]:ease-out max-[820px]:motion-reduce:transition-none";
 
 const linkClass =
   "relative py-1.5 text-[.95rem] text-ivory/85 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-0 after:bg-gold after:transition-[width] after:duration-250 after:content-[''] hover:after:w-full aria-[current=page]:after:w-full max-[820px]:block max-[820px]:py-4 max-[820px]:text-[1.05rem]";
@@ -43,9 +43,10 @@ export default function Header() {
       ? "bg-navy/92 shadow-[0_1px_0_var(--color-line-dark)] backdrop-blur-[12px]"
       : "";
 
+  // The mobile menu slides in from the left and back out to the left.
   const listState = open
-    ? "max-[820px]:visible max-[820px]:translate-y-0 max-[820px]:opacity-100"
-    : "max-[820px]:invisible max-[820px]:-translate-y-3 max-[820px]:opacity-0";
+    ? "max-[820px]:visible max-[820px]:translate-x-0"
+    : "max-[820px]:invisible max-[820px]:-translate-x-full";
 
   const burger = `relative m-auto block h-0.5 w-6 transition-[transform,background-color] duration-250 before:absolute before:left-0 before:top-[-7px] before:block before:h-0.5 before:w-6 before:bg-current before:transition-transform before:duration-250 before:content-[''] after:absolute after:left-0 after:top-[7px] after:block after:h-0.5 after:w-6 after:bg-current after:transition-transform after:duration-250 after:content-[''] ${
     open
@@ -77,6 +78,17 @@ export default function Header() {
             id="primary-nav"
             className={`${listBase} ${listMobile} ${listState}`}
           >
+            {/* Mobile menu only: on desktop the logo is the way home */}
+            <li className="hidden max-[820px]:block max-[820px]:w-full max-[820px]:border-b max-[820px]:border-line-dark">
+              <Link
+                href={homeLink.href}
+                className={linkClass}
+                aria-current={pathname === homeLink.href ? "page" : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {homeLink.label}
+              </Link>
+            </li>
             {navLinks.map((link) => (
               <li
                 key={link.href}

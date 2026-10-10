@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import LinkArrow from "@/components/ui/LinkArrow";
+import Parallax from "@/components/ui/Parallax";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
 
 const projects = [
@@ -35,13 +37,18 @@ export default function Projects() {
   return (
     <section id="projects" className="bg-navy py-[clamp(72px,10vw,132px)]">
       <Container>
-        <SectionHead title="Recent installations" tone="dark">
-          <LinkArrow href="/projects" tone="dark">
-            See all projects
-          </LinkArrow>
-        </SectionHead>
+        <Reveal>
+          <SectionHead title="Recent installations" tone="dark">
+            <LinkArrow href="/projects" tone="dark">
+              See all projects
+            </LinkArrow>
+          </SectionHead>
+        </Reveal>
 
-        <div className="grid h-[clamp(560px,62vw,760px)] grid-cols-[1.5fr_1fr] grid-rows-[1fr_1fr] gap-5 max-[980px]:h-auto max-[980px]:grid-cols-1 max-[980px]:grid-rows-none">
+        <Reveal
+          stagger={0.15}
+          className="grid h-[clamp(560px,62vw,760px)] grid-cols-[1.5fr_1fr] grid-rows-[1fr_1fr] gap-5 max-[980px]:h-auto max-[980px]:grid-cols-1 max-[980px]:grid-rows-none"
+        >
           {projects.map((project, i) => (
             <Link
               key={project.image}
@@ -52,13 +59,15 @@ export default function Projects() {
                   : "max-[980px]:min-h-[340px]"
               }`}
             >
-              <Image
-                src={project.image}
-                alt={project.alt}
-                fill
-                sizes="(max-width: 980px) 100vw, 60vw"
-                className="-z-20 object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
-              />
+              <Parallax amount={4} className="-z-20">
+                <Image
+                  src={project.image}
+                  alt={project.alt}
+                  fill
+                  sizes="(max-width: 980px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+                />
+              </Parallax>
               <span
                 aria-hidden="true"
                 className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(11,20,38,0)_35%,rgba(11,20,38,.9)_100%)]"
@@ -88,7 +97,7 @@ export default function Projects() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

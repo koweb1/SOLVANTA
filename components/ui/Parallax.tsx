@@ -6,7 +6,7 @@ import { MOTION_OK_QUERY, gsap, useGSAP } from "@/lib/motion";
 type ParallaxProps = {
   /** Usually a next/image with `fill`. */
   children: ReactNode;
-  /** Drift in % of the image height. Keep at 8 or below. */
+  /** Drift in % of the image height. Keep at 8 or below. Lower = less zoom. */
   amount?: number;
   /** Start zoomed in (e.g. 1.12) and settle to normal size on load. */
   introZoom?: number;
@@ -23,6 +23,9 @@ export default function Parallax({
 }: ParallaxProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+
+  // Extra image around the frame, just enough room for the drift.
+  const pad = amount * 1.25;
 
   useGSAP(
     () => {
@@ -66,8 +69,7 @@ export default function Parallax({
       ref={rootRef}
       className={`absolute inset-0 overflow-hidden ${className}`}
     >
-      {/* 20% taller than the frame so there is room to drift */}
-      <div ref={innerRef} className="absolute inset-[-10%]">
+      <div ref={innerRef} className="absolute" style={{ inset: `-${pad}%` }}>
         {children}
       </div>
     </div>

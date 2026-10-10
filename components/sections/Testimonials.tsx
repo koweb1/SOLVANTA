@@ -1,5 +1,6 @@
 import Avatar from "@/components/ui/Avatar";
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import SectionHead from "@/components/ui/SectionHead";
 
 const testimonials = [
@@ -33,12 +34,17 @@ export default function Testimonials() {
       className="bg-ivory py-[clamp(72px,10vw,132px)] text-ink"
     >
       <Container>
-        <SectionHead
-          title="What our customers say"
-          description="Homes and businesses that stopped planning their day around the grid."
-        />
+        <Reveal>
+          <SectionHead
+            title="What our customers say"
+            description="Homes and businesses that stopped planning their day around the grid."
+          />
+        </Reveal>
 
-        <div className="grid grid-cols-3 gap-[clamp(20px,3vw,36px)] max-[980px]:-mx-[var(--gutter)] max-[980px]:flex max-[980px]:snap-x max-[980px]:snap-mandatory max-[980px]:gap-4 max-[980px]:overflow-x-auto max-[980px]:px-[var(--gutter)] max-[980px]:pb-2 max-[980px]:[scroll-padding-inline:var(--gutter)] max-[980px]:[scrollbar-width:none] max-[980px]:[&::-webkit-scrollbar]:hidden">
+        <Reveal
+          stagger={0.14}
+          className="grid grid-cols-3 gap-[clamp(20px,3vw,36px)] max-[980px]:-mx-[var(--gutter)] max-[980px]:flex max-[980px]:snap-x max-[980px]:snap-mandatory max-[980px]:gap-4 max-[980px]:overflow-x-auto max-[980px]:px-[var(--gutter)] max-[980px]:pb-2 max-[980px]:[scroll-padding-inline:var(--gutter)] max-[980px]:[scrollbar-width:none] max-[980px]:[&::-webkit-scrollbar]:hidden"
+        >
           {testimonials.map((item) => (
             <figure
               key={item.name}
@@ -71,8 +77,8 @@ export default function Testimonials() {
                 </div>
               </figcaption>
             </figure>
-          ))} 
-        </div>
+          ))}
+        </Reveal>
       </Container>
     </section>
   );

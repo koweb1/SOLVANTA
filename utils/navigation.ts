@@ -1,3 +1,5 @@
+export const homeLink = { label: "Home", href: "/" };
+
 export const navLinks = [
   { label: "Residential", href: "/residential" },
   { label: "Commercial", href: "/commercial" },
