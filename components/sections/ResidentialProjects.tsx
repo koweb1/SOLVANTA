@@ -34,11 +34,12 @@ const projects: Project[] = [
     size: "22 kW",
   },
   {
-    // TODO: add the real location and system size for this project.
     image: "/images/res.jpg",
     alt: "Modern home with solar panels on a flat roof at dusk",
     name: "Private residence",
+    location: "Ikoyi, Lagos",
     type: "Residential",
+    size: "8 kW",
   },
 ];
 
