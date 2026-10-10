@@ -183,6 +183,15 @@ const tiers: Tier[] = [
 const COLS = 6;
 const ROWS = 4;
 
+/* Splits "3 to 5 kVA" into the amount and its unit, so the unit can sit on its
+   own line on small screens. */
+function splitUnit(value: string) {
+  const match = value.match(/^(.+?)\s+(kVA|kWh)$/);
+  return match
+    ? { amount: match[1], unit: match[2] }
+    : { amount: value, unit: null };
+}
+
 /* Decorative size illustration: filled slots show how big each system is. */
 function TierVisual({
   panels,
@@ -341,18 +350,31 @@ export default function ResidentialSizes() {
 
               <div>
                 <TierVisual panels={tier.panels} batteries={tier.batteries} />
-                <dl className="mt-6 grid grid-cols-3 gap-5 max-[560px]:grid-cols-1 max-[560px]:gap-4">
-                  {tier.specs.map((spec) => (
-                    <div
-                      key={spec.label}
-                      className="border-l-2 border-gold pl-4"
-                    >
-                      <dt className="text-[.88rem] text-steel">{spec.label}</dt>
-                      <dd className="mt-1 font-head text-[1.35rem] leading-[1.25] font-semibold">
-                        {spec.value}
-                      </dd>
-                    </div>
-                  ))}
+                <dl className="mt-6 grid grid-cols-3 gap-5 max-[560px]:gap-3">
+                  {tier.specs.map((spec) => {
+                    const { amount, unit } = splitUnit(spec.value);
+                    return (
+                      <div
+                        key={spec.label}
+                        className="border-l-2 border-gold pl-4 max-[560px]:pl-3"
+                      >
+                        <dt className="text-[.88rem] text-steel max-[560px]:text-[.8rem]">
+                          {spec.label}
+                        </dt>
+                        <dd className="mt-1 font-head text-[1.35rem] leading-[1.25] font-semibold max-[560px]:text-[1.1rem]">
+                          <span className="whitespace-nowrap">{amount}</span>
+                          {unit && (
+                            <>
+                              {" "}
+                              <span className="max-[560px]:block max-[560px]:text-[.8rem] max-[560px]:font-medium max-[560px]:text-steel">
+                                {unit}
+                              </span>
+                            </>
+                          )}
+                        </dd>
+                      </div>
+                    );
+                  })}
                 </dl>
               </div>
             </article>
