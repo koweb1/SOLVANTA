@@ -5,11 +5,13 @@ import Reveal from "@/components/ui/Reveal";
 type FinalCtaProps = {
   title?: string;
   description?: string;
+  primaryLabel?: string;
 };
 
 export default function FinalCta({
   title = "Ready to power your future?",
   description = "Tell us about your property and your electricity bill. We will come back with a clear plan and a quote.",
+  primaryLabel = "Get a Free Quote",
 }: FinalCtaProps) {
   return (
     <section
@@ -42,7 +44,7 @@ export default function FinalCta({
           <p className="mt-5 text-[1.1rem] text-silver">{description}</p>
           <div className="mt-9 flex flex-wrap gap-3.5">
             <Button href="/contact" className="max-[560px]:flex-[1_1_100%]">
-              Get a Free Quote
+              {primaryLabel}
             </Button>
             <Button
               href="https://wa.me/0000000000"
